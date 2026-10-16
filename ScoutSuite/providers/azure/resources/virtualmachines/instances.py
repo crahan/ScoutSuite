@@ -89,10 +89,10 @@ class Instances(AzureResources):
             instance_dict['storage_profile'] = {}
             if raw_instance.storage_profile.image_reference is not None:
                 instance_dict['storage_profile']['Publisher'] = raw_instance.storage_profile.image_reference.publisher
-            instance_dict['storage_profile']['Release'] = raw_instance.storage_profile.image_reference.version
-            instance_dict['storage_profile']['SKU'] = raw_instance.storage_profile.image_reference.sku
-            instance_dict['storage_profile']['Offer'] = raw_instance.storage_profile.image_reference.offer
-            instance_dict['storage_profile']['Exact Version'] = raw_instance.storage_profile.image_reference.exact_version
+            instance_dict['storage_profile']['Release'] = getattr(raw_instance.storage_profile.image_reference, 'version', None)
+            instance_dict['storage_profile']['SKU'] = getattr(raw_instance.storage_profile.image_reference, 'sku', None)
+            instance_dict['storage_profile']['Offer'] = getattr(raw_instance.storage_profile.image_reference, 'offer', None)
+            instance_dict['storage_profile']['Exact Version'] = getattr(raw_instance.storage_profile.image_reference, 'exact_version', None)
             instance_dict['storage_profile']['OS Disk Size (GB)'] = raw_instance.storage_profile.os_disk.disk_size_gb
             instance_dict['storage_profile']['OS Disk Name'] = raw_instance.storage_profile.os_disk.name
             instance_dict['storage_profile']['OS Disk VHD'] = raw_instance.storage_profile.os_disk.vhd
